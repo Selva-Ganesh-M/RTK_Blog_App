@@ -4,7 +4,7 @@ import PostsList from "./features/posts/PostsList";
 
 const App = () => {
   return (
-    <div class="app">
+    <div className="app">
       <AddPost />
       <PostsList />
     </div>
