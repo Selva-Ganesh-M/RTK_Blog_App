@@ -16,7 +16,7 @@ const Post = ({ post }) => {
     <section key={post.id} className="post">
       <h1>{post.title}</h1>
       <p>author: {User}</p>
-      <p>{post.content.substring(0, 30)}...</p>
+      <p>{post.body.substring(0, 30)}...</p>
       <p
         style={{
           fontSize: "12px",
