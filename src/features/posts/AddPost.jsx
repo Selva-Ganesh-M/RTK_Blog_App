@@ -40,17 +40,16 @@ const AddPost = () => {
       <select
         name="author"
         id="author"
-        defaultValue="Select"
         value={selectedAuthor}
         onChange={(e) => {
-          setSelectedAuthor(e.target.value);
-          console.log(e.target.value);
+          setSelectedAuthor(Number(e.target.value));
         }}
       >
+        <option value="" disabled placeholder="Author">
+          Author
+        </option>
         {users.map((user) => (
-          <option key={user.id} value={user.id}>
-            {user.name}
-          </option>
+          <option key={user.id} label={user.name} value={user.id} />
         ))}
       </select>
       <button onClick={handleSubmit} disabled={!canSubmit}>

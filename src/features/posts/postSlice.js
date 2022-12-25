@@ -22,6 +22,7 @@ const postSlice = createSlice({
         state.push(action.payload);
       },
       prepare: (title, content, userId) => {
+        console.log(title, content, userId);
         return {
           payload: {
             id: nanoid(),
