@@ -5,7 +5,13 @@ import { getAllPosts } from "./postSlice";
 
 const PostsList = () => {
   const posts = useSelector(getAllPosts);
-  const renderPosts = posts.map((post) => <Post key={post.id} post={post} />);
+  // let orderedPosts = posts;
+  const orderedPosts = posts
+    .slice()
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const renderPosts = orderedPosts.map((post) => (
+    <Post key={post.id} post={post} />
+  ));
   return <div className="postsList">{renderPosts}</div>;
 };
 

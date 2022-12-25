@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from "date-fns";
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState = [
   {
@@ -5,12 +6,28 @@ const initialState = [
     title: "This is the title.",
     content:
       "This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. ",
+    createdAt: new Date().toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
   {
     id: 2,
     title: "This is the title.",
     content:
       "This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. This is the content. ",
+    createdAt: new Date().toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 const postSlice = createSlice({
@@ -22,20 +39,32 @@ const postSlice = createSlice({
         state.push(action.payload);
       },
       prepare: (title, content, userId) => {
-        console.log(title, content, userId);
         return {
           payload: {
             id: nanoid(),
             title,
             content,
             userId,
+            createdAt: new Date().toISOString(),
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
           },
         };
       },
+    },
+    updateReaction: (state, action) => {
+      const { postId, key } = action.payload;
+      const post = state.find((post) => post.id === postId);
+      post.reactions[key]++;
     },
   },
 });
 
 export const getAllPosts = (state) => state.posts;
-export const { addNew } = postSlice.actions;
+export const { addNew, updateReaction } = postSlice.actions;
 export default postSlice.reducer;
