@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../users/userSlice";
-import { addNew } from "./postSlice";
+import { addNew, addPost, getPostsStatus } from "./postSlice";
 
 const AddPost = () => {
+  // DECLARATIONS
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
+
+  // RTK DECLARATIONS
   const users = useSelector(getAllUsers);
   const dispatch = useDispatch();
+
+  // LOGICS
   const canSubmit = [title, content, selectedAuthor].every(Boolean);
   const handleSubmit = () => {
     if (!canSubmit) {
       return;
     }
-    dispatch(addNew(title, content, selectedAuthor));
-    setTitle("");
-    setContent("");
+    // dispatch(addNew(title, content, selectedAuthor));
+    try {
+      dispatch(
+        addPost({
+          title,
+          body: content,
+          userId: selectedAuthor,
+        })
+      ).unwrap();
+      setTitle("");
+      setContent("");
+    } catch (error) {
+      console.log("adding new post failed: ", error.message);
+    }
   };
 
   return (
