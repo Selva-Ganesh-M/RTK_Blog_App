@@ -120,6 +120,10 @@ const postSlice = createSlice({
 export const getAllPosts = (state) => state.posts.posts;
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
+export const getSinglePost = (state, id) => {
+  const post = state.posts.posts.find((post) => post.id === Number(id));
+  return post;
+};
 
 // ACTIONS EXPORT
 export const { addNew, updateReaction } = postSlice.actions;
